@@ -1,15 +1,26 @@
-console.log('hello');
+
 
 window.onload = function(){
 
-
-
+ 
+ 
 
     let mole = document.createElement('div');
     mole.classList.add('mole');
 
+    let displayScore = document.getElementById('score');
+    let score = 110;
+
+
     function sendTheMole(){
-        setInterval(()=>{
+            mole.remove();
+            
+           let randomNumWithGlobalScope = (Math.floor(Math.random() * 2000)) + 500;
+
+           if(randomNumWithGlobalScope > 1800){
+            let x = setTimeout(sendTheMole, randomNumWithGlobalScope) 
+               return;
+           }
             // right now the mole simply appears in a different box once every second
             // instead, let's make it so the mole sometimes stays for longer than a second
             // sometimes for less
@@ -20,8 +31,23 @@ window.onload = function(){
             let randomBox = boxes[Math.floor(Math.random() * boxes.length)];
             
             randomBox.append(mole);
+            if (score <= 0) {
+                document.querySelector('h1').innerText = "You lose!";
+                clearInterval(x);}
+                else if (score >= 200) {
+                    
+                    document.querySelector('h1').innerText = "You win!";
+                    clearInterval(x);
+                }
             
-        }, 1000)
+
+            score = score - 10;
+            displayScore.innerText = score;
+
+            
+
+        
+            setTimeout(sendTheMole, randomNumWithGlobalScope) 
     }
 
 
@@ -38,6 +64,15 @@ window.onload = function(){
 
 
 
+mole.onclick = function(){
+    document.getElementsByClassName('h1')
+   mole.remove();
+   score = score + 20;
+   displayScore.innerText = score;
+   
+  
+}
+
 
 
 
@@ -51,17 +86,3 @@ window.onload = function(){
 
 
 }// end window onload
-
-
-
-
-
-
-
-
-
-
-
-
-
-
